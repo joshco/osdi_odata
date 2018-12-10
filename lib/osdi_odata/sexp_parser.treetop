@@ -1,0 +1,56 @@
+# This file contains the PEG grammar definition that
+# Treetop uses to generate our parser.
+#
+# For more information check out the Treetop site:
+# http://treetop.rubyforge.org/
+
+grammar Sexp
+
+
+  rule expression
+    (osdi_method_call / embed / identifier  / float / integer / string / space )* <Expression>
+  end
+
+  rule osdi_method
+    'near'  <OsdiMethod>
+  end
+
+
+  rule osdi_method_call
+    osdi_method '(' string ')' <OsdiMethodCall>
+  end
+
+  rule embed
+    space? '(' expression ')' space? <Embed>
+  end
+  
+  rule integer
+    ('+' / '-')? [0-9]+ <IntegerLiteral>
+  end
+  
+  rule float
+    ('+' / '-')? [0-9]+ (('.' [0-9]+) / ('e' [0-9]+)) <FloatLiteral>
+  end
+  
+  rule string
+    "'" ([^'\\] / "\\" . )* "'" <StringLiteral>
+  end
+  
+  #rule operator
+    
+  #  'eq' <MyOperator>
+  #end
+  
+
+    
+  rule identifier
+    [a-zA-Z] [a-zA-Z0-9_]* <Identifier>
+  end
+
+ 
+  rule space
+    [\s]+
+  end
+  
+
+end

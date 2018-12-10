@@ -1,8 +1,6 @@
 # OsdiOdata
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/osdi_odata`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Converts OData filter strings into SQL for use in OSDI.  Currently assumes Postgres dialect.
 
 ## Installation
 
@@ -14,7 +12,7 @@ gem 'osdi_odata'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -22,7 +20,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+````
+odata_filter="odified_date gt '2018-08-01' or ( gender ne 'Male' and gender ne 'They')"
+
+OsdiOdata.parse(odata_filter)
+
+"modified_date > '2018-08-01' OR ( gender <> 'Male' AND gender <> 'They' )"
+
+````
 
 ## Development
 
@@ -32,4 +37,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/osdi_odata.
+Bug reports and pull requests are welcome on GitHub at https://github.com/joshco/osdi_odata.
